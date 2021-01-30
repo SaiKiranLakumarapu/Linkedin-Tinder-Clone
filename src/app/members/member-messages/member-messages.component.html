@@ -1,0 +1,55 @@
+<div class="card">
+  <div 
+    class="card-body"
+    #scrollMe
+    style="overflow-y: auto; overflow-x: hidden; height: 535px;"
+    [scrollTop]="scrollMe.scrollHeight"
+  >
+    <div *ngIf="(_messageService.messageThread$ | async)?.length <= 0">
+      Say hi by using the message box below  
+    </div>
+    <ul 
+      *ngIf="(_messageService.messageThread$ | async).length > 0" 
+      class="chat"
+      >
+      <li *ngFor="let message of (_messageService.messageThread$ | async)">
+        <div>
+          <span class="chat-img float-right">
+            <img class="rounded-circle" src="{{message.sendPhotoUrl || './assets/user.png'}}" alt="{{message.senderUsername}}">
+          </span>
+          <p>{{message.content}}</p>
+          <div class="chat-body">
+            <small class="text-muted">
+              <span class="text-danger" *ngIf="!message.dateRead && message.senderUsername != username">
+                (unread <i class="fa fa-book"></i>)
+              </span>
+              <span class="text-muted" *ngIf="message.dateRead && message.senderUsername != username">
+                (read <i class="fas fa-book-open"></i>) {{message.dateSent | timeago}}
+              </span>
+            </small>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer">
+    <form #messageForm="ngForm" (submit)="sendMessage()" autocomplete="off">
+      <div class="input-group">
+        <input 
+          name="messageContent"
+          required
+          type="text" 
+          class="form-control input-sm" 
+          placeholder="Send a private message"
+          [(ngModel)]="messageContent"
+        >
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit" [disabled]="messageForm.invalid || loading">
+            Send
+            <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

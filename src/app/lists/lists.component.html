@@ -1,0 +1,25 @@
+<div class="text-center">
+  <h2 class="">{{likeParams.predicate === 'liked' ? 'Members you like' : 'Member who like you'}}</h2>
+</div>
+<app-dropdown-filter
+  [dropdownName]="'Filter By'"
+  [params]="likeParams.predicate"
+  (filterClicked)="filterClicked($event)"
+  [btn1RadioName]="'liked'"
+  [btn2RadioName]="'likedBy'"
+  [field1Name]="'Members i like'"
+  [field2Name]="'Members who like me'"
+></app-dropdown-filter>
+<div class="row mt-3">
+  <div class="col-2" *ngFor="let member of members">
+    <app-member-card [member]="member" *ngIf="members?.length > 0"></app-member-card>
+  </div>
+</div>
+<div *ngIf="members?.length <= 0" class="mt-3 text-center">
+  <p>{{likeParams.predicate === 'liked' ? 'You have not given a like to any other member' : 'You have not received any likes yet'}}</p>
+</div>
+<app-pagination-field
+  [pagination]="pagination"
+  [members]="members"
+  (pageChangedEvent)="pageChanged($event)"
+></app-pagination-field>

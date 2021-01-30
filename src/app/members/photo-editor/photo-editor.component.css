@@ -1,0 +1,69 @@
+img.img-thumbnail {
+    height: 100px;
+    min-width: 100px !important;
+    margin-bottom: 2px;
+}
+
+.nv-file-over {
+    border: dotted 3px black;
+}
+
+input[type=file] {
+    color: transparent;
+}
+
+#add-button, #delete-button {
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.choose-main-button {
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.choose-main-button:hover {
+    border: none;
+    color: green;
+    cursor: pointer;
+}
+
+
+#add-button:hover {
+    border: none;
+    color:darkgreen;
+    cursor: pointer;
+}
+
+#delete-button:hover {
+    border: none;
+    cursor: pointer;
+}
+
+#photo-edit-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+input {
+    padding: 3px 3px;
+}
+
+#back-arrow {
+    border: none;
+    background-color: white;
+    color: lightgray;
+    cursor: pointer;
+}
+
+#back-arrow:hover {
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+

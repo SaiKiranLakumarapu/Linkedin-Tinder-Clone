@@ -1,0 +1,84 @@
+<div class="row" *ngIf="member">
+    <div class="col-4">
+        <h1>Your profile</h1>
+    </div>
+    <div class="col-8">
+        <div class="alert alert-warning" *ngIf="editForm.dirty">
+            <p><strong>Warning: </strong> Remember to save your changes or they will be lost!</p>
+        </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <img 
+          src="{{member.photoUrl || './assets/user.png'}}"
+          alt="{{member.username}}" 
+          class="card-img-top img-thumbnail"
+        >
+        <div class="card-body text-center">
+          <div>
+            <strong>Location: </strong>
+            <p>{{member.city}}</p>
+          </div>
+          <div>
+            <strong>Age: </strong>
+            <p>{{member.age}}</p>
+          </div>
+          <div>
+            <strong>Member since: </strong>
+            <p>{{member.created | date}}</p>
+          </div>
+          <div>
+            <strong>Last Active: </strong>
+            <p>{{member.lastActive | date}}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+            <button [disabled]="!editForm.dirty" form="editForm" type="submit" class="btn btn-success btn-block">Save changes</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <tabset class="member-tabset">
+        <tab heading="Edit Section">
+            <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+                <h4>Description</h4>
+                <textarea 
+                    [(ngModel)]="member.bio" 
+                    name="bio" 
+                    rows="6"
+                    class="form-control"
+                ></textarea>
+                <h4 class="mt-2">Looking for</h4>
+                <textarea
+                    [(ngModel)]="member.lookingFor" 
+                    name="lookingFor" 
+                    rows="6"
+                    class="form-control"
+                ></textarea>
+                <h4 class="mt-2" *ngIf="member.gender != 'employer'">Skills</h4>
+                <angular-editor
+                  [(ngModel)]="member.skills"
+                  *ngIf="member.gender != 'employer'"  
+                  name="skills" 
+                  [placeholder]="'Edit skills here...'"
+                  [config]="editorConfig"
+                >
+                </angular-editor>
+                <h4 class="mt-2">Location details: </h4>
+                <div class="form-inline">
+                  <label for="city">City: </label>
+                  <input
+                    [(ngModel)]="member.city" 
+                    type="text" 
+                    name="city" 
+                    class="form-control mx-2"
+                  >
+                </div>    
+            </form> 
+        </tab>
+        <tab heading="Edit Photos">
+          <app-photo-editor [member]="member"></app-photo-editor>
+        </tab>
+      </tabset>
+    </div>
+  </div>
