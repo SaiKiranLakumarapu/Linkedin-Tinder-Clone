@@ -4,7 +4,6 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov
 import { AllHtmlEntities } from 'html-entities';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { take } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/auth.service';
 import { MessageService } from 'src/app/messages/services/message.service';
 import { PresenceService } from 'src/app/messages/services/Presence.service';
 import { Member } from 'src/app/models/member';
@@ -29,8 +28,8 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   constructor(private _route: ActivatedRoute,
               private _messageService: MessageService,
-              public _presenceService: PresenceService,
-              private _authService: AuthService) { }
+              public _presenceService: PresenceService
+             ) { }
 
   ngOnInit() {
     this._route.data.subscribe(data => {
@@ -38,9 +37,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
       this.member.skills = AllHtmlEntities.decode(data.member.skills);
     });
 
-    this._authService.currentUser$.pipe(take(1)).subscribe(user => {
-      this.user = user;
-    });
+  
 
     this._route.queryParams.subscribe(params => {
       params.tab ? this.selectMessagesTab(params.tab) : this.selectMessagesTab(0);

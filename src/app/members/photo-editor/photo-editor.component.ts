@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/auth.service';
 import { Member } from 'src/app/models/member';
 import { Photo } from 'src/app/models/photo';
 import { User } from 'src/app/models/user';
@@ -24,16 +23,13 @@ export class PhotoEditorComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
 
-  constructor(private _authService: AuthService,
-              private _membersService: MembersService,
+  constructor(private _membersService: MembersService,
               private _toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.isCollapsed = false;
     this.member.photos.sort(x => x.isMain ? -1 : 1);
-    this._authService.currentUser$.pipe(take(1)).subscribe(user => {
-      this.user = user;
-    });
+    
 
     this.initializeUploader();
   }
@@ -67,7 +63,7 @@ export class PhotoEditorComponent implements OnInit {
         if (photo.isMain) {
           this.user.photoUrl = photo.url;
           this.member.photoUrl = photo.url;
-          this._authService.setCurrentUser(this.user);
+          
         }
       }
     };
@@ -80,7 +76,7 @@ export class PhotoEditorComponent implements OnInit {
   setMainPhoto(photo: Photo): void {
     this._membersService.setMainPhoto(photo.id).subscribe(() => {
       this.user.photoUrl = photo.url;
-      this._authService.setCurrentUser(this.user);
+    
       this.member.photoUrl = photo.url;
 
       this.member.photos.forEach(p => {

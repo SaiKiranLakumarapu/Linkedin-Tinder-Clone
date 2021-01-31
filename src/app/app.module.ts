@@ -11,7 +11,6 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
-import { AuthModule } from './auth/auth.module';
 import { MembersModule } from './members/members.module';
 import { MessageModule } from './messages/message.module';
 
@@ -30,7 +29,6 @@ import { MessageModule } from './messages/message.module';
       BrowserAnimationsModule,
       SharedModule,
       MembersModule,
-      AuthModule,
       MessageModule
    ],
    providers: [

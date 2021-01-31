@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AdminGuard } from './admin/admin.guard';
-import { AuthGuard } from './auth/auth.guard';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
@@ -21,8 +20,7 @@ const routes: Routes = [
     {path: '', component: HomeComponent},
     {
         path: '',
-        runGuardsAndResolvers: 'always',
-        canActivate: [AuthGuard],
+        runGuardsAndResolvers: 'always',       
         children: [
             {path: 'members', component: MemberListComponent},
             {path: 'members/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver}},

@@ -1,6 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/models/user';
 
 
@@ -12,11 +11,8 @@ export class HasRoleDirective implements OnInit {
   user: User;
 
   constructor(private _viewContainerRef: ViewContainerRef,
-              private _templateRef: TemplateRef<any>,
-              private _authService: AuthService) {
-                  this._authService.currentUser$.pipe(take(1)).subscribe(user => {
-                    this.user = user;
-                  });
+              private _templateRef: TemplateRef<any>) {
+                  
                }
 
   ngOnInit(): void {
